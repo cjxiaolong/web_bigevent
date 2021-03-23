@@ -1,15 +1,15 @@
-$(function() {
+$(function () {
     getUserInfo()
     var layer = layui.layer
-    $('#btnLogout').on('click', function() {
+    $('#btnLogout').on('click', function () {
         // 提示用户是否退出
-        layer.confirm('确定退出登录?', { icon: 3, title: '提示' }, function(index) {
+        layer.confirm('确定退出登录?', { icon: 3, title: '提示' }, function (index) {
             //do something
             //  1. 清空本地存储
             localStorage.removeItem('token')
-                // 2.重新跳转登录页
+            // 2.重新跳转登录页
             location.href = 'login.html'
-                // 关闭 confirm 询问框
+            // 关闭 confirm 询问框
             layer.close(index);
         });
     })
@@ -23,12 +23,12 @@ function getUserInfo() {
         // headers: {
         //     Authorization: localStorage.getItem('token') || ''
         // },
-        success: function(res) {
+        success: function (res) {
             if (res.status !== 0) {
                 return layui.layer.msg('获取用户信息失败！')
 
             }
-            console.log(res);
+            // console.log(res);
             renderAvatar(res.data)
         },
         //  无论成功或失败 都会调用这个函数
@@ -47,9 +47,9 @@ function getUserInfo() {
 // 渲染用户头像
 function renderAvatar(user) {
     var name = user.nickname || user.username
-        // 设置欢迎文本
+    // 设置欢迎文本
     $('#welcome').html('欢迎&nbsp&nbsp' + name)
-        //  按需渲染图片头像
+    //  按需渲染图片头像
     if (user.user_pic !== null) {
         //  渲染图片头像
         $('.layui-nav-img').attr('src', user.user_pic).show()
